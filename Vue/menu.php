@@ -16,6 +16,10 @@
     <ul>
       <li><a href="./?action=accueil">Accueil</a></li>
       <li><a href="./?action=salles">Salles</a></li>
+      <li><a href="./?action=gestionPoste">Gestion des postes</a></li>	
+
+      <li><a href="./?action=contact">Contact</a></li>
+
       <?php session_start();?>
       <?php if (!isset($_SESSION['id'])){?>
       <li><a href="./?action=connexion">Connexion</a></li>
@@ -23,7 +27,6 @@
       <li><a href="deconnexion.php">Déconnexion</a></li>
       <?php } ?>
 
-      <li><a href="./?action=contact">Contact</a></li>
     </ul>
   </header>
   <section class="banner"></section>

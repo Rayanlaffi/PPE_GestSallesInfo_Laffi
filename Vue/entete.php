@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script type="text/javascript" src="bib/js/jquery-3.3.1.min.js"></script>
 
