@@ -1,0 +1,102 @@
+</br><h1 class="text-center"><?= $titre ?></h1>
+
+
+<?php if (!isset($_GET['id']) && !isset($_GET['poste']) ){
+    foreach ($rooms as $room) { 
+    $id = $room->getId();
+    ?>
+    <!-- <a href="?action=salles&id=<?=$id?>" class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start"> -->
+    <a class="allerSalle col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><?=$room->getRoomName()?></h5>
+      <small class="text-muted"><span class="badge badge-light"><?=$id?></span></small>
+    </div>
+    <p class="mb-1"><?=$room->getDescription()?></p>
+    </a>
+
+<?php }
+}
+else{
+    if (isset($_GET['id']) && !isset($_GET['poste'])){ ?>
+        <a class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><?=$nomSalle?></h5>
+          <small class="text-muted"><span class="badge badge-light"><?=$id?></span></small>
+        </div>
+        <p class="mb-1"><?=$description?></p>
+        <p class="mb-1">La salle <?=$nomSalle?> contient <?=$capacite?> places et contient <?=$nbPoste?> postes: </p>
+        <?php foreach ($postes as $poste) { ?> 
+        <a href="?action=salles&id=<?=$id?>&poste=<?=$poste->getnPoste()?>" class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start"> 
+        <p class="text-center mb-1"><?=$poste->getNomPoste()?></p>
+        </a>  
+        <?php } ?>
+        </a>
+
+        <a href="?action=salles" class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
+        <button type="button" class="col-md-6 offset-md-3 btn btn-secondary btn-sm">Retour aux salles</button>
+        </a>
+    <?php }
+    
+    if (isset($_GET['poste'])){ ?>
+        <a class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><?=$nomPoste?></h5>
+          <small class="text-muted"><span class="badge badge-light"><?=$nPoste?></span></small>
+        </div>
+        <p class="text-center mb-1"><b>Type de poste:</b> <?=$typePoste?></p>
+        <p class="text-center mb-1"><b>Nombre de logiciels:</b> <?=$nbrLog?></p>
+        <p class="text-center mb-1"><b>Ip: </b><?=$indIP?></p>
+        <p class="text-center mb-1"><b>Ad: </b><?=$ad?></p>
+        </a>
+
+        <a href="?action=salles&id=<?=$id?>" class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
+        <button type="button" class="col-md-6 offset-md-3 btn btn-secondary btn-sm">Retour aux postes</button>
+        </a>
+    <?php }
+
+} ?> 
+
+<?php  ?> 
+</br>
+
+
+<script>
+$(document).ready(function(){
+    $(".allerSalle").click(function(){
+        var id = $(this).attr("value");
+        $.ajax({url: "traitementAfficheSalle.php/?id="+id, success: function(result){
+        $("#div1").html(result);
+        }});
+    });
+}); 
+
+$(document).ready(function(){
+    $(".test").click(function(){
+        var id = $(this).attr("value");
+        $.ajax({url: "traitementAfficheSalle.php/?id="+id, success: function(result){
+        $("#div1").html(result);
+        }});
+    });
+});  
+
+$(document).ready(function(){
+    $(".testPoste").click(function(){
+        var id = $(".test").attr("value");
+        var idPoste = $(this).attr("value");
+        $.ajax({url: "traitementAfficheSalle.php/?id="+id+"&idPoste="+idPoste, success: function(result){
+        $("#div1").html(result);
+        }});
+    });
+});  
+
+//----------retour
+
+$(document).ready(function(){
+    $(".retourSalles").click(function(){    
+        $.ajax({url: "traitementAfficheSalle.php", success: function(result){
+        $("#div1").html(result);
+        }});
+    });
+}); 
+
+</script>
