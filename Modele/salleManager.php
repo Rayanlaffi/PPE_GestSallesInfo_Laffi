@@ -1,7 +1,7 @@
 <?php
 
-require_once("Modele/Manager.php");
-require_once("modele/salle.php");
+require_once("$racine/Modele/Manager.php");
+require_once("$racine/modele/salle.php");
 
 class salleManager extends Manager
 {

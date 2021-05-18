@@ -1,7 +1,7 @@
 <?php
 
-require_once("Modele/Manager.php");
-require_once("modele/utilisateur.php");
+require_once("$racine/Modele/Manager.php");
+require_once("$racine/modele/utilisateur.php");
 
 class utilisateurManager extends Manager
 {
