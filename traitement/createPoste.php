@@ -15,7 +15,7 @@ if (isset($_POST['leNomPoste']) && $_POST['leNomPoste'] != ""){
     $type = $_POST['leType'];
     $nbLog = $_POST['leNbLog'];
     $posteManager->createPoste($nomPoste,$indip,$ad,$type,$nbLog);
-
 }
+
 
 ?>

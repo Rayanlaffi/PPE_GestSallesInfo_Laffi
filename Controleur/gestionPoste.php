@@ -11,6 +11,9 @@ $titre = "Gestion des postes";
 
 $posteManager = new posteManager();
 $postes = $posteManager->getList();
+require_once("$racine/Modele/segmentManager.php");
+$segmentManager = new segmentManager();
+$lesSegments = $segmentManager->getList();
 
 include "$racine/vue/entete.php";
 include "$racine/vue/vueGestionSalles.php";

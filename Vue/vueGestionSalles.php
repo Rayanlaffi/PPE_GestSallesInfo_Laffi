@@ -22,8 +22,12 @@
             <input type="text" class="form-control" id="nomPoste" name="nomPoste" placeholder="Nom du poste">
           </div>
           <div class="form-group">
-            <label for="indip">IndIp:</label>
-            <input type="text" class="form-control" id="indip" name="indip" placeholder="ex: 130.120.8">
+            <label for="indip">Segment:</label>
+            <select class="form-control" id="indip">
+            <?php foreach ($lesSegments as $leSegment) { ?>
+                <option value="<?= $leSegment->getIndIP()?>"><?= $leSegment->getNomSegment()?></option>
+            <?php } ?>
+            </select>
           </div>
           <div class="form-group">
             <label for="ad">Ad:</label>
