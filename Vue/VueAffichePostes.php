@@ -1,23 +1,3 @@
-<?php
-    require_once("Modele/salleManager.php");
-    require_once("Modele/mrbsroomManager.php");
-    require_once("Modele/posteManager.php");
-
-    $salleManager = new salleManager();
-    $mrbsroomManager = new mrbsroomManager();
-    $posteManager = new posteManager();
-
-    $id = $_GET['id'];
-    $room = $mrbsroomManager->get($id);
-    $nomSalle = $room->getRoomName();
-    $capacite = $room->getCapacity();
-    $description = $room->getDescription();
-
-    $salle = $salleManager->get($id);
-    $nbPoste = $salle->getNbPoste();
-
-    $postes = $posteManager->getPosteParSalle($id);
-?>
 <!-- Affichage des postes par salle -->
 
 <a class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
@@ -34,20 +14,32 @@
     <?php } ?>
 </a>
 
-<a href="?action=salles" class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
-    <button type="button" class="col-md-6 offset-md-3 btn btn-secondary btn-sm">Retour aux salles</button>
+<!-- <a href="?action=salles" class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
+    <button type="button" class="retourSalles col-md-6 offset-md-3 btn btn-secondary btn-sm">Retour aux salles</button>
+</a> -->
+<a class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
+    <button type="button" class="retourSalles col-md-6 offset-md-3 btn btn-secondary btn-sm">Retour aux salles</button>
 </a>
-
 <!-- fin des Affichages des postes par salle -->
 
 <script>
 $(document).ready(function(){
     $(".infosPoste").click(function(){
         var idPoste = $(this).attr("value");
+        var racine = <?php echo json_encode($racine); ?>;
         var id = <?php echo json_encode($id); ?>;
-        $.ajax({url: "infosPoste.php?id=<?=$id?>&idPoste="+idPoste, success: function(result){
+        $.ajax({url: "../PPE_GestSallesInfo_Laffi/traitement/informationsPoste.php?id=<?=$id?>&idPoste="+idPoste+"&laRacine="+racine, success: function(result){
         $("#contenu").html(result);
         }});
     });
 });  
+
+$(document).ready(function(){
+    $(".retourSalles").click(function(){
+        var racine = <?php echo json_encode($racine); ?>;
+        $.ajax({url: "../PPE_GestSallesInfo_Laffi/Controleur/afficheSalles.php?laRacine="+racine, success: function(result){
+        $("#contenu").html(result);
+        }});
+    });
+}); 
 </script>

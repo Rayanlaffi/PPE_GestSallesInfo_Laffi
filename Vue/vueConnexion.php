@@ -1,4 +1,8 @@
-<div class="container">
+<div class="container"><br>
+  <?php  if (isset($_GET['connexion']) && $_GET['connexion'] == 0) { ?>
+    <div class="alert alert-danger" role="alert">Mot de passe ou e-mail incorrect.</div>
+  
+  <?php } ?>
   <div class="card">
     <article class="card-body">
     <h4 class="card-title mb-4 mt-1">Se connecter</h4>

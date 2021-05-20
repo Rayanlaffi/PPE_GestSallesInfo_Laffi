@@ -24,7 +24,7 @@ if(isset($_POST['mail'])){
         header('Location: index.php?action=accueil&connexion=1');
     }
     else{
-        header('Location: index.php?action=accueil&connexion=0');
+        header('Location: index.php?action=connexion&connexion=0');
     }
 
     

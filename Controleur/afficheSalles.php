@@ -2,6 +2,9 @@
 if ($_SERVER["SCRIPT_FILENAME"] == __FILE__) {
     $racine = "..";
 }
+else{
+    if (isset($_GET['laRacine'])){$racine = $_GET['laRacine'];}
+}
 
 require_once("$racine/Modele/salleManager.php");
 require_once("$racine/Modele/mrbsroomManager.php");
@@ -40,7 +43,14 @@ if (isset($_GET['poste'])){
     $typePoste = $poste->getTypePoste();
 }
 
-include "$racine/vue/entete.php";
+if (!isset($_GET['laRacine'])){ // je fais ceci pour eviter de repeter l'entete quand on fait retour aux salles
+    include "$racine/vue/entete.php";
+}
+
 include "$racine/vue/vueAfficheSalles.php";
-include "$racine/vue/pied.php";
+
+if (!isset($_GET['laRacine'])){ // je fais ceci pour eviter de repeter le pied quand on fait retour aux salles
+    include "$racine/vue/pied.php";
+}
+
 ?>

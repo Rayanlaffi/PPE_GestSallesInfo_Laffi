@@ -35,7 +35,11 @@
           </div>
           <div class="form-group">
             <label for="type">Type de poste:</label>
-            <input type="text" class="form-control" id="type" name="type" placeholder="ex: UNIX">
+            <select class="form-control" id="type">
+            <?php foreach ($lesTypes as $leType) { ?>
+                <option value="<?= $leType->getTypeLP()?>"><?= $leType->getNomType()?></option>
+            <?php } ?>
+            </select>
           </div>
           <div class="form-group">
             <label for="nbLog">Nombre de logiciel:</label>
@@ -104,7 +108,7 @@ function createPoste() {
 <!-- fin fonctions js -->
 <br>
 <!-- affichage des postes -->
-<?php 
+<!-- <?php 
 foreach ($postes as $poste) { 
 $nPoste = $poste->getnPoste();
 ?>
@@ -122,7 +126,7 @@ $nPoste = $poste->getnPoste();
 
 <?php
 }
-?>
+?> -->
 
 </br>
 <style>
@@ -141,3 +145,77 @@ $nPoste = $poste->getnPoste();
 </style>
 
 
+
+<table id="table" class="table table-striped display">
+  <thead>
+    <tr>
+      <th>Listes des postes</th>
+    <tr> 
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-center">
+<?php 
+foreach ($postes as $poste) { 
+$nPoste = $poste->getnPoste();
+?>
+
+<div class="row">
+  <div class="col-md-6 offset-md-3 list-group-item">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><?=$poste->getNomPoste()?></h5>
+      <small class="text-muted"><span class="badge badge-light"><?=$nPoste?></span></small>
+    </div>
+    <p class="mb-1"></p>
+  </div>
+  <div class="centrage"> <a href=""><span class="edit material-icons">edit</span></a> </div>
+</div>
+
+<?php
+}
+?>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+$(document).ready( function () {
+    
+    $('#table').DataTable(
+      {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.22/i18n/French.json"
+            },
+            responsive: true
+      }
+    );  
+    
+    
+    
+});
+</script>
+
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>$(document).ready( function () {
+    $('#table_id').DataTable();
+} );</script>

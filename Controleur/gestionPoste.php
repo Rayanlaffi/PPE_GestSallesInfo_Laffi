@@ -11,11 +11,16 @@ $titre = "Gestion des postes";
 
 $posteManager = new posteManager();
 $postes = $posteManager->getList();
+
 require_once("$racine/Modele/segmentManager.php");
 $segmentManager = new segmentManager();
 $lesSegments = $segmentManager->getList();
 
+require_once("$racine/Modele/typeManager.php");
+$typeManager = new typeManager();
+$lesTypes = $typeManager->getList();
+
 include "$racine/vue/entete.php";
-include "$racine/vue/vueGestionSalles.php";
+include "$racine/vue/vueGestionPostes.php";
 include "$racine/vue/pied.php";
 ?>

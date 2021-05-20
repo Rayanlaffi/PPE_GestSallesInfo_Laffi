@@ -1,22 +1,3 @@
-<?php
-    require_once("Modele/salleManager.php");
-    require_once("Modele/mrbsroomManager.php");
-    require_once("Modele/posteManager.php");
-
-    $salleManager = new salleManager();
-    $mrbsroomManager = new mrbsroomManager();
-    $posteManager = new posteManager();
-
-    $nPoste = $_GET['idPoste'];
-    $idSalle = $_GET['id'];
-    $poste = $posteManager->get($nPoste);
-    $nomPoste = $poste->getNomPoste();
-    $ad = $poste->getAd();
-    $indIP = $poste->getIndIP();
-    $nbrLog = $poste->getNbLog();
-    $typePoste = $poste->getTypePoste();
-    ?>
-
 <!-- Affichage des informations des postes dans la salle -->
 
 <a class="col-md-6 offset-md-3 list-group-item list-group-item-action flex-column align-items-start">
@@ -41,7 +22,8 @@
 <script>
 $(document).ready(function(){
     $(".retour").click(function(){
-        $.ajax({url: "affichePoste.php?id="+<?=$idSalle?>, success: function(result){
+        var racine = <?php echo json_encode($racine); ?>;
+        $.ajax({url: "../PPE_GestSallesInfo_Laffi/traitement/affichagePostes.php?id="+<?=$idSalle?>+"&laRacine="+racine, success: function(result){
         $("#contenu").html(result);
         }});
     });
