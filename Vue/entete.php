@@ -38,7 +38,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </header>
-<body>
+<?php session_start();?>
+<body onload="session(30, 5, '?action=deconnexion')">
 
     <?php include 'menu.php'?>
     

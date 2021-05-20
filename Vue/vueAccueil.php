@@ -1,7 +1,7 @@
 <title><?= $titre ?></title>
 <div class="corps">
 
-    <?php  if (isset($_GET['connexion']) && $_GET['connexion'] == 1) { ?>
+    <?php  if ( isset($_SESSION['id']) && isset($_GET['connexion']) && $_GET['connexion'] == 1) { ?>
         <br><div class="alert alert-success text-center" role="alert">Vous êtes identifié en tant que <?=$_SESSION['nom']?> <?=$_SESSION['prenom']?>.</div>
     <?php } ?>
 
