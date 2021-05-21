@@ -19,10 +19,10 @@
 
         <div class="form-group">
           <label for="segment">Segment:</label>
-          <select class="form-control" id="segment">
+          <select onchange="afficherPosteDansSalle(this.value)" class="form-control" id="segment">
             <option selected="true" disabled="disabled">Pour afficher la liste des postes, sélectionner une salle.</option>   
           <?php foreach ($rooms as $room) { ?>
-            <option onclick="afficherPosteDansSalle()" value="<?= $room->getId()?>"><?= $room->getRoomName()?></option>
+            <option  value="<?= $room->getId()?>"><?= $room->getRoomName()?></option>
           <?php } ?>
           </select>
         </div>
@@ -39,7 +39,8 @@
           </div>
         </div>
         
-
+        <div id="lesPostes"></div>  <!--  div pour mettre les postes -->
+       
 
       </div>
       <div class="modal-footer">
@@ -48,7 +49,15 @@
     </div>
   </div>
 </div>
-
+<script>
+  function afficherPosteDansSalle(salle) {
+    var racine = <?php echo json_encode($racine); ?>;
+    console.log(salle);
+    $.ajax({url: "../PPE_GestSallesInfo_Laffi/traitement/affichagePosteParSalle.php?id="+salle+"&laRacine="+racine, success: function(result){
+    $("#lesPostes").html(result);
+    }});
+  }
+</script>
 
 <div style="z-index:501">
   <div class="modal fade" id="creationPoste" tabindex="-1" role="dialog" aria-labelledby="creationPosteLabel" aria-hidden="true">
