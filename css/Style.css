@@ -148,4 +148,32 @@ h1
     box-shadow: 1px 1px 4px rgba(0,0,0);
 }
 
-    
+.centrage{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .edit{
+    color:black;
+  }
+  .edit:hover{
+    color:red;
+  }
+
+  .done{
+    color:black;
+  }
+  .done:hover{
+    color:lime;
+  }
+
+  .voir{
+    color:black;
+  }
+  .voir:hover{
+    color:rgb(0, 140, 255);
+  }
+  .enleverPuce {
+    list-style-type: none;
+}

@@ -38,10 +38,36 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </header>
-<?php session_start();?>
+
 <body onload="session(30, 5, '?action=deconnexion')">
 
     <?php include 'menu.php'?>
     
     
-    
+<script>
+function rappelSession(minutes)
+{
+   var msg='Votre session expirera dans '+minutes+' minute';
+   if(minutes>1) msg+='s';
+   msg+='.\nVoulez-vous recharger la page pour éviter la déconnexion automatique ?';
+ 
+   if(confirm(msg)) location.reload();
+}
+ 
+
+function expirationSession(url)
+{
+   alert('Votre session a expiré !\nVous êtes actuellement déconnecté.\nVeuillez vous reconnecter en remettant votre Login et Mot de passe.');
+   location.href=url;
+}
+
+function session(expiration, rappel, redirection)
+{
+   // affichage du rappel
+   var chronoRappel=setTimeout('rappelSession('+rappel+')', (expiration-rappel)*60*1000);
+ 
+   // une fois le rappel affiché, on avertit uniquement de l'expiration
+   var chronoExpiration=setTimeout('expirationSession(\''+redirection+'\')', expiration*60*1000);
+}
+
+</script>    

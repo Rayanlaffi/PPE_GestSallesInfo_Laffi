@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "getRacine.php";
 include "$racine/controleur/controleurPrincipal.php";
 

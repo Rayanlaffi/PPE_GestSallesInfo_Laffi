@@ -2,6 +2,7 @@
 
 require_once("$racine/Modele/Manager.php");
 require_once("$racine/modele/mrbsroom.php");
+require_once("$racine/modele/salle.php");
 
 class mrbsroomManager extends Manager
 {
@@ -22,10 +23,23 @@ class mrbsroomManager extends Manager
         while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
         {
             $room[$donnees['id']] = new mrbsroom($donnees['id'], $donnees['disabled'],$donnees['area_id'],$donnees['room_name'], $donnees['sort_key'],$donnees['description'],$donnees['capacity'],$donnees['room_admin_email'],$donnees['custom_html']);
+
+            
         }
         return $room;
     }
 
+
+    public function getPlacesRestantes($id) 
+    {
+        $id = (int) $id;
+        $q = $this->getPDO()->query('SELECT `capacity` FROM `mrbs_room` where id = '.$id);
+        $donneesMrbs = $q->fetch(PDO::FETCH_ASSOC);
+        $q = $this->getPDO()->query('SELECT `nbPoste` FROM `salle` where id = '.$id);
+        $donneesSalle = $q->fetch(PDO::FETCH_ASSOC);
+        $resultat =  $donneesMrbs['capacity'] - $donneesSalle['nbPoste'];
+        return $resultat;
+    }
     
     
 }

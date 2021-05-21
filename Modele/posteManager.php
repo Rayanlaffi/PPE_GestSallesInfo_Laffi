@@ -39,13 +39,13 @@ class posteManager extends Manager
         
     }
 
-    public function createPoste($nomPoste,$indip,$ad,$typePoste,$nbLog) 
+    public function createPoste($nomPoste,$indip,$ad,$typePoste,$nbLog,$salle) 
     {
        $requeteMaxID = $this->getPDO()->query('SELECT MAX(CAST(SUBSTRING(`nPoste`, 2) AS UNSIGNED)) as "maxID" from poste'); // la requete 
        $maxID = $requeteMaxID->fetch(PDO::FETCH_ASSOC);// ici je recup le tableau qui nous donne la valeur
        $new_id = $maxID['maxID'] + 1; //ici je rajoute 1 a l'id
        $nPoste = "p" . $new_id; // ici je remet le 'p' devant
-       $idSalle = null;
+       $idSalle = $salle;
 
        if(empty($indip)){$indip = null;}
        if(empty($ad)){$ad = null;}
@@ -58,5 +58,38 @@ class posteManager extends Manager
         
     }
     
+    public function modifierPoste($nPoste,$nomPoste,$indip,$ad,$typePoste,$nbLog, $salle) 
+    {
+        if(empty($indip)){$indip = null;}
+        if(empty($ad)){$ad = null;}
+        if(empty($typePoste)){$typePoste = null;}
+        if(empty($nbLog)){$nbLog = null;}
+        if(empty($salle)){$salle = null;}
+
+        $data = [
+            'nPoste' => $nPoste,
+            'nomPoste' => $nomPoste,
+            'indIP' => $indip,
+            'ad' => $ad,
+            'typePoste' => $typePoste,
+            'nbLog' => $nbLog,
+            'idSalle' =>$salle,
+        ];
+        $sql = "UPDATE poste SET nomPoste=:nomPoste, indIP=:indIP, ad=:ad, typePoste=:typePoste, nbLog=:nbLog , idSalle=:idSalle WHERE nPoste=:nPoste";
+        $stmt= $this->getPDO()->prepare($sql);
+        $stmt->execute($data);
+        
+    }
+
+    public function supprimerPoste($nPoste) 
+    {
+        $data = [
+            'nPoste' => $nPoste,
+        ];
+        $sql = "DELETE FROM `poste` WHERE nPoste=:nPoste";
+        $stmt= $this->getPDO()->prepare($sql);
+        $stmt->execute($data);
+        
+    }
 }
 ?>

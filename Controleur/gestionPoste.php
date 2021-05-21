@@ -9,6 +9,12 @@ require_once("$racine/Modele/posteManager.php");
 
 $titre = "Gestion des postes";
 
+$salleManager = new salleManager();
+$mrbsroomManager = new mrbsroomManager();
+$rooms = $mrbsroomManager->getList();
+$salles = $salleManager->getList();
+
+
 $posteManager = new posteManager();
 $postes = $posteManager->getList();
 

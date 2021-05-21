@@ -6,10 +6,10 @@ require_once("$racine/modele/type.php");
 class typeManager extends Manager
 {
     
-    public function get($indIP) 
+    public function get($typeLP) 
     {
-        $indIP = (String) $indIP;
-        $q = $this->getPDO()->query('SELECT * FROM `types` where indIP = "'.$indIP.'"');
+        $typeLP = (String) $typeLP;
+        $q = $this->getPDO()->query('SELECT * FROM `types` where typeLP = "'.$typeLP.'"');
         $donnees = $q->fetch(PDO::FETCH_ASSOC);
         return new type($donnees['typeLP'], $donnees['nomType']);
         
