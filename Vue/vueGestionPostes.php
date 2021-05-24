@@ -49,6 +49,7 @@
           </div>
 
           <div class="form-group">
+          <label for="salle">Salle:</label>
             <select class="form-control" id="salle">
               <option selected value="null">Ne pas l’installer dans une salle.</option>
               <?php foreach ($rooms as $room) { 

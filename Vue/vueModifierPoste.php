@@ -47,6 +47,7 @@
           </div>
 
           <div class="form-group">
+          <label for="salleModif">Salle:</label>
             <select class="form-control" id="salleModif">
             <?php if ($currentRoom->getId() == null) { ?> 
               <option value="null">Ne pas l’installer dans une salle.</option>

@@ -26,15 +26,15 @@ if (isset($_GET['id'])){
     $capacite = $room->getCapacity();// je recupère la capacite
     $description = $room->getDescription(); // je recupère la description
 
-    $salle = $salleManager->get($id);
-    $nbPoste = $salle->getNbPoste();
+    $salle = $salleManager->get($id); 
+    $nbPoste = $salle->getNbPoste(); // je recupère le nombre de poste actuelle dans la salle
 
-    $postes = $posteManager->getPosteParSalle($id);
+    $postes = $posteManager->getPosteParSalle($id); // get la collection d'objets postes dans la salle 
 }
 if (isset($_GET['poste'])){
     $id = $_GET['id'];
     $nPoste = $_GET['poste'];
-
+// get toutes les infos
     $poste = $posteManager->get($nPoste);
     $nomPoste = $poste->getNomPoste();
     $ad = $poste->getAd();
