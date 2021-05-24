@@ -16,15 +16,15 @@ $salleManager = new salleManager();
 $posteManager = new posteManager();
 
 $mrbsroomManager = new mrbsroomManager();
-$rooms = $mrbsroomManager->getList();
+$rooms = $mrbsroomManager->getList(); // je recupère la liste des salles
 
 if (isset($_GET['id'])){
     $id = $_GET['id'];
 
-    $room = $mrbsroomManager->get($id);
-    $nomSalle = $room->getRoomName();
-    $capacite = $room->getCapacity();
-    $description = $room->getDescription();
+    $room = $mrbsroomManager->get($id);   // je recupère la salles avec l'id 
+    $nomSalle = $room->getRoomName(); // je recupère le nom de la salle
+    $capacite = $room->getCapacity();// je recupère la capacite
+    $description = $room->getDescription(); // je recupère la description
 
     $salle = $salleManager->get($id);
     $nbPoste = $salle->getNbPoste();

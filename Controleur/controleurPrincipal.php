@@ -15,6 +15,7 @@ function controleurPrincipal($action) {
 
     if (isset($_SESSION['permission']) && $_SESSION['permission'] == 1){
         $lesActions["gestionPoste"]= "gestionPoste.php"; 
+        $lesActions["affichePosteParSalle"]= "gestionSalle.php";
     } 
     
 

@@ -2,62 +2,9 @@
 <!-- Partie Modal -->
 <div class="row col-md-6 offset-md-3">
 <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#creationPoste">Créer un poste</button>
-<button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#ajouterPoste">Ajouter des postes aux salles</button>
+<button type="button" onclick="window.location.href='./?action=affichePosteParSalle'" class="btn btn-secondary btn-lg btn-block">Gestion des salles (Pas encore fonctionnel)</button>
 
 </div>
-
-<div class="modal" id="ajouterPoste" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Ajouter des postes aux salles:</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <div class="form-group">
-          <label for="segment">Segment:</label>
-          <select onchange="afficherPosteDansSalle(this.value)" class="form-control" id="segment">
-            <option selected="true" disabled="disabled">Pour afficher la liste des postes, sélectionner une salle.</option>   
-          <?php foreach ($rooms as $room) { ?>
-            <option  value="<?= $room->getId()?>"><?= $room->getRoomName()?></option>
-          <?php } ?>
-          </select>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4 text-left">
-            Ajouter:<button onclick="ajouterPoste()" class="btn btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Add"><span class="done material-icons">add</span></button>
-          </div>
-          <div class="col-md-4 text-center">
-            Voir:<button onclick="voirPoste()" class="btn btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="voir"><span class="voir material-icons">visibility</span></button>
-          </div>
-          <div class="col-md-4 text-right">
-            Retirer:<button onclick="retirerPoste()" class="btn btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="remove"><span class="edit material-icons">clear</span></button>
-          </div>
-        </div>
-        
-        <div id="lesPostes"></div>  <!--  div pour mettre les postes -->
-       
-
-      </div>
-      <div class="modal-footer">
-        <button onclick="document.location.reload();" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-  function afficherPosteDansSalle(salle) {
-    var racine = <?php echo json_encode($racine); ?>;
-    console.log(salle);
-    $.ajax({url: "../PPE_GestSallesInfo_Laffi/traitement/affichagePosteParSalle.php?id="+salle+"&laRacine="+racine, success: function(result){
-    $("#lesPostes").html(result);
-    }});
-  }
-</script>
 
 <div style="z-index:501">
   <div class="modal fade" id="creationPoste" tabindex="-1" role="dialog" aria-labelledby="creationPosteLabel" aria-hidden="true">
@@ -194,6 +141,7 @@ $(document).ready( function () {
 } );
 </script>
 
+<div class="container">
 <table id="table" class="table table-striped display">
   <thead>
     <tr>
@@ -218,9 +166,11 @@ $nPoste = $poste->getnPoste();
         <p class="mb-1"></p>
       </div>
       
-      <div class="centrage"> <a id="<?=$nPoste?>" onclick="openModifierPoste(this.id)" href="#"><span class="edit material-icons">edit</span></a></li> </div>
-      <div class="centrage"> <a id="<?=$nPoste?>" onclick="deletePoste(this.id)" href="#"><span class="edit material-icons">clear</span></a></li> </div>
+      <div class="centrage"> <a data-toggle="tooltip" data-placement="top" title="Modifier le poste"id="<?=$nPoste?>" onclick="openModifierPoste(this.id)" href="#"><span class="edit material-icons">edit</span></a></li> </div>
+      <div class="centrage"> <a data-toggle="tooltip" data-placement="top" title="Supprimer le poste"id="<?=$nPoste?>" onclick="deletePoste(this.id)" href="#"><span class="edit material-icons">clear</span></a></li> </div>
+      
     </div>
+    
   </td>
 </tr>
 <?php
@@ -229,10 +179,13 @@ $nPoste = $poste->getnPoste();
       
   </tbody>
 </table>
-
+</div>
 <div id="contenuModiferPoste"></div>
 
 <script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 function openModifierPoste(nPoste) {
   var racine = <?php echo json_encode($racine); ?>;
   $.post("../PPE_GestSallesInfo_Laffi/traitement/modifierPoste.php", { laRacine : racine, nPoste : nPoste },	function(resultat){

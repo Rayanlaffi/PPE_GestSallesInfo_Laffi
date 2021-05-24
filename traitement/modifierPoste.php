@@ -43,6 +43,8 @@ if (!isset($_POST['modification'])) { // pour savoir si on doit afficher le moda
 else{
 
     if (isset($_POST['leNomPoste']) && $_POST['leNomPoste'] != "") {
+        $salleManager = new salleManager();
+        $mrbsroomManager = new mrbsroomManager();
         $nomPoste = $_POST['leNomPoste'];
         $indip = $_POST['leIndip'];
         $ad = $_POST['leAd'];
@@ -50,8 +52,11 @@ else{
         $nbLog = $_POST['leNbLog'];
         $salle = $_POST['laSalle'];
         if($salle == "null"){$salle = null;}
-        $posteManager->modifierPoste($nPoste,$nomPoste,$indip,$ad,$type,$nbLog, $salle);
 
+        $placesRestantesCurrentRoom = $mrbsroomManager->getPlacesRestantes($salle);
+        if($placesRestantesCurrentRoom !=0){
+            $posteManager->modifierPoste($nPoste,$nomPoste,$indip,$ad,$type,$nbLog, $salle);
+        }
     }
 
 

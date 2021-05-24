@@ -88,18 +88,45 @@ function modifierPoste(nPoste) {
   var type = $('#typeModif').val(); 
   var nbLog = $('#nbLogModif').val();
   var salle = $('#salleModif').val();
+  var placesRestantes = null;
+  jQuery.ajax({
+    url: '../PPE_GestSallesInfo_Laffi/traitement/getPlacesRestantes.php',
+    type: 'POST',
+    data: {salle: salle, laRacine : racine },
+        error:function(data)
+        {
+            alert("erreur fonction modifier poste js");
+            console.log(data);
+        },
+        success: function(data) 
+        {                                                                                
+          placesRestantes = parseInt(data);
+          
+        }
+  });
   $.post("../PPE_GestSallesInfo_Laffi/traitement/modifierPoste.php", { laRacine : racine, leNomPoste : nomPoste, leIndip : indip, leAd : ad, leType : type, leNbLog : nbLog, nPoste : nPoste, laSalle : salle, modification : modification  },function(resultat){
-    if(nomPoste != ""){
-      $('.message').html('Le poste a bien modifié.');
+    if(nomPoste != "" && placesRestantes !=0){
+      $('.message').html('Le poste a bien été modifié.' );
       $('.message').css('color','green');  
       $('#modifierPoste').modal('hide');
       $("#modalMessage").modal('toggle');
       
     }
     else{
-      $('.message').html('Vous devez au moins renseigner le nom du poste.');
-      $('.message').css('color','red');
-    }
+      if(placesRestantes == 0){
+        $('#modifierPoste').modal('hide');
+        $('.message').html('La salle est pleine.');
+        $('.message').css('color','red');
+        $("#modalMessage").modal('toggle');
+      }else{
+          $('#modifierPoste').modal('hide');
+          $('.message').html('Vous devez au moins renseigner le nom du poste.');
+          $('.message').css('color','red');
+          $("#modalMessage").modal('toggle');
+        }
+      }
+      
+    
   });
 }
   

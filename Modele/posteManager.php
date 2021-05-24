@@ -39,6 +39,19 @@ class posteManager extends Manager
         
     }
 
+    
+    public function getPostesPretPourInstallation() 
+    {
+        $poste = [];
+        $q = $this->getPDO()->query('SELECT * FROM `poste` WHERE idSalle IS NULL ');
+        while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+        {
+            $poste[$donnees['nPoste']] = new poste($donnees['nPoste'], $donnees['nomPoste'],$donnees['indIP'],$donnees['ad'],$donnees['typePoste'],$donnees['idSalle'],$donnees['nbLog']);
+        }
+        return $poste;
+        
+    }
+
     public function createPoste($nomPoste,$indip,$ad,$typePoste,$nbLog,$salle) 
     {
        $requeteMaxID = $this->getPDO()->query('SELECT MAX(CAST(SUBSTRING(`nPoste`, 2) AS UNSIGNED)) as "maxID" from poste'); // la requete 
